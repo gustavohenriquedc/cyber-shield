@@ -13,14 +13,13 @@
             --neon-purple: #bd00ff;
             --neon-red: #ff3131;
             --text-main: #e2e8f0;
-            --text-dim: #64748b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
@@ -40,24 +39,20 @@
             padding: 35px;
             width: 100%;
             max-width: 650px;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
             text-align: center;
-            position: relative;
         }
 
         h1 {
             font-size: 2.4rem;
             margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--neon-blue);
         }
 
         p {
             margin-bottom: 25px;
             line-height: 1.6;
             color: #cbd5e1;
-            font-size: 1.05rem;
         }
 
         .btn {
@@ -78,7 +73,6 @@
         .btn:hover:not(:disabled) {
             border-color: var(--neon-purple);
             box-shadow: 0 0 12px rgba(189, 0, 255, 0.5);
-            transform: translateY(-2px);
         }
 
         .btn:disabled {
@@ -108,19 +102,15 @@
             align-items: center;
             margin-bottom: 15px;
             font-weight: bold;
-            font-size: 1.1rem;
         }
 
         #timer-display {
             color: var(--neon-blue);
-            font-family: monospace;
             font-size: 1.3rem;
-            text-shadow: 0 0 8px var(--neon-blue);
         }
 
         #timer-display.danger {
             color: var(--neon-red);
-            text-shadow: 0 0 8px var(--neon-red);
             animation: pulse 1s infinite;
         }
 
@@ -131,14 +121,12 @@
             border-radius: 3px;
             margin-bottom: 25px;
             overflow: hidden;
-            border: 1px solid #1e293b;
         }
 
         .progress-bar {
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            box-shadow: 0 0 8px var(--neon-blue);
             transition: width 0.4s ease;
         }
 
@@ -149,8 +137,6 @@
             margin-bottom: 25px;
             border-left: 4px solid var(--neon-blue);
             text-align: left;
-            font-size: 1.15rem;
-            line-height: 1.5;
         }
 
         .feedback-card {
@@ -158,9 +144,7 @@
             border-radius: 8px;
             margin-top: 15px;
             margin-bottom: 20px;
-            font-weight: 500;
             text-align: left;
-            animation: slideIn 0.3s ease;
         }
 
         .success-style {
@@ -180,22 +164,12 @@
             border: none;
             text-align: center;
             font-weight: bold;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
-        }
-
-        .action-btn:hover {
-            box-shadow: 0 0 18px rgba(189, 0, 255, 0.7);
         }
 
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.4; }
             100% { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -205,8 +179,7 @@
         <!-- TELA INICIAL -->
         <div id="start-screen">
             <h1>CyberShield 🔐</h1>
-            <p style="color: var(--neon-blue); font-weight: 600; margin-bottom: 10px;">🛡️ Treinamento de Defesa e Educação Digital</p>
-            <p>Seu sistema está sob constante ameaça hacker. Proteja sua fortaleza digital respondendo a 5 desafios críticos sobre segurança de dados, inteligência artificial e verificação de fontes. Você terá apenas 20 segundos por fase!</p>
+            <p>Seu sistema está sob constante ameaça hacker. Proteja sua fortaleza digital respondendo a 5 desafios críticos sobre segurança. Você terá apenas 20 segundos por fase!</p>
             <button class="btn action-btn" onclick="startGame()" style="text-align: center;">Iniciar Protocolo de Defesa</button>
         </div>
 
@@ -223,13 +196,13 @@
             </div>
             
             <p style="text-align: left; font-weight: bold; color: var(--neon-blue); margin-bottom: 8px;">Desafio <span id="current-phase">1</span> de 5</p>
-            <div id="scenarie" class="scenarie-card">Carregando dados da matriz...</div>
+            <div id="scenarie" class="scenarie-card">Carregando dados...</div>
 
             <div id="options-container"></div>
 
             <!-- Bloco de Feedback -->
             <div id="feedback" class="feedback-card hidden">
-                <p id="feedback-text" style="color: inherit; margin-bottom: 15px;"></p>
+                <p id="feedback-text" style="margin-bottom: 15px;"></p>
                 <button class="btn action-btn" id="next-btn" onclick="nextPhase()" style="text-align: center; margin-bottom: 0;">Avançar Diretriz</button>
             </div>
         </div>
@@ -269,3 +242,157 @@
                     { text: "A IA acessou a deep web para achar livros secretos.", correct: false },
                     { text: "O servidor da ferramenta foi invadido por um vírus naquele instante.", correct: false }
                 ],
+                explanation: "IAs de linguagem prevêem a próxima palavra mais provável. Elas não têm consciência de verdade e podem 'alucinar' fatos de forma convincente."
+            },
+            {
+                scenario: "Você recebe um SMS dizendo que você ganhou um sorteio de R$ 5.000 de uma grande marca, bastando validar seu token de segurança do banco. O que fazer?",
+                options: [
+                    { text: "Ignorar completamente. Trata-se de Smishing (Phishing via SMS) focado em roubo de credenciais.", correct: true },
+                    { text: "Entrar em contato respondendo ao próprio SMS para conferir o regulamento.", correct: false },
+                    { text: "Validar apenas o token, sem passar o número da conta.", correct: false }
+                ],
+                explanation: "Fraudes financeiras usam senso de urgência ou prêmios falsos para capturar tokens. Bancos nunca solicitam códigos de segurança por SMS."
+            },
+            {
+                scenario: "Um jogo online pede permissão para acessar sua lista de contatos, localização em tempo real e câmera para conceder um item estético grátis. É prudente aceitar?",
+                options: [
+{ text: "Sim, os termos de privacidade protegem meus dados em qualquer app da loja.", correct: false },
+{ text: "Não. Isso compromete sua Pegada Digital e concede acesso excessivo aos seus dados pessoais.", correct: true }
+],
+explanation: "Itens 'grátis' em apps abusivos servem de isca para coleta de dados em massa. Forneça apenas permissões estritamente necessárias para o app rodar."
+}
+];
+let currentPhaseIndex = 0;
+let score = 0;
+let lives = 3;
+let timer = null;
+let timeLeft = 20;
+function startGame() {
+document.getElementById('start-screen').classList.add('hidden');
+document.getElementById('end-screen').classList.add('hidden');
+document.getElementById('game-screen').classList.remove('hidden');
+currentPhaseIndex = 0;
+score = 0;
+lives = 3;
+updateStatus();
+loadPhase();
+}
+function updateStatus() {
+document.getElementById('score-display').textContent = Pontos: ${score};
+document.getElementById('lives-display').textContent = Vidas: ${'❤️'.repeat(lives)};
+document.getElementById('current-phase').textContent = currentPhaseIndex + 1;
+const pct = (currentPhaseIndex / database.length) * 100;
+document.getElementById('progress-indicator').style.width = ${pct}%;
+}
+function startClock() {
+if (timer) clearInterval(timer);
+timeLeft = 20;
+const timerDisplay = document.getElementById('timer-display');
+timerDisplay.textContent = ⏱️ ${timeLeft}s;
+timerDisplay.classList.remove('danger');
+timer = setInterval(() => {
+timeLeft--;
+timerDisplay.textContent = ⏱️ ${timeLeft}s;
+if (timeLeft <= 5) {
+timerDisplay.classList.add('danger');
+}
+if (timeLeft <= 0) {
+clearInterval(timer);
+handleTimeout();
+}
+}, 1000);
+}
+function loadPhase() {
+document.getElementById('feedback').classList.add('hidden');
+const container = document.getElementById('options-container');
+container.innerHTML = '';
+let currentChallenge = database[currentPhaseIndex];
+document.getElementById('scenarie').textContent = currentChallenge.scenario;
+currentChallenge.options.forEach((option) => {
+const button = document.createElement('button');
+button.className = 'btn';
+button.textContent = option.text;
+button.onclick = (e) => checkAnswer(option.correct, currentChallenge.explanation, e.currentTarget);
+container.appendChild(button);
+});
+startClock();
+}
+function checkAnswer(isCorrect, explanation, clickedButton) {
+if (timer) clearInterval(timer);
+const buttons = document.getElementById('options-container').querySelectorAll('button');
+buttons.forEach(btn => btn.disabled = true);
+const feedbackBox = document.getElementById('feedback');
+const feedbackText = document.getElementById('feedback-text');
+feedbackBox.classList.remove('hidden');
+if (isCorrect) {
+score += 20;
+clickedButton.classList.add('correct-choice');
+feedbackBox.className = "feedback-card success-style";
+feedbackText.innerHTML = <strong>Acesso Autorizado!</strong> Defesa executada com sucesso.<br><br>${explanation};
+} else {
+lives--;
+clickedButton.classList.add('wrong-choice');
+highlightCorrectAnswer();
+feedbackBox.className = "feedback-card error-style";
+feedbackText.innerHTML = <strong>Sistema Rompido!</strong> Brecha detectada na segurança.<br><br>${explanation};
+}
+updateStatus();
+if (lives <= 0) {
+document.getElementById('next-btn').textContent = "Encerrar Protocolo";
+} else {
+document.getElementById('next-btn').textContent = "Avançar Diretriz";
+}
+}
+function handleTimeout() {
+const buttons = document.getElementById('options-container').querySelectorAll('button');
+buttons.forEach(btn => btn.disabled = true);
+lives--;
+highlightCorrectAnswer();
+const feedbackBox = document.getElementById('feedback');
+const feedbackText = document.getElementById('feedback-text');
+feedbackBox.classList.remove('hidden');
+feedbackBox.className = "feedback-card error-style";
+feedbackText.innerHTML = <strong>Tempo Esgotado!</strong> Os hackers agiram mais rápido que seus reflexos de segurança.;
+updateStatus();
+if (lives <= 0) {
+document.getElementById('next-btn').textContent = "Encerrar Protocolo";
+} else {
+document.getElementById('next-btn').textContent = "Avançar Diretriz";
+}
+}
+function highlightCorrectAnswer() {
+const challenge = database[currentPhaseIndex];
+const buttons = document.getElementById('options-container').querySelectorAll('button');
+buttons.forEach((btn, idx) => {
+if (challenge.options[idx].correct) {
+btn.classList.add('correct-choice');
+}
+});
+}
+function nextPhase() {
+currentPhaseIndex++;
+if (lives <= 0 || currentPhaseIndex >= database.length) {
+endGame();
+} else {
+updateStatus();
+loadPhase();
+}
+}
+function endGame() {
+if (timer) clearInterval(timer);
+document.getElementById('game-screen').classList.add('hidden');
+document.getElementById('end-screen').classList.remove('hidden');
+document.getElementById('progress-indicator').style.width = 100%;
+const endTitle = document.getElementById('end-title');
+const endMessage = document.getElementById('end-message');
+if (lives > 0) {
+endTitle.textContent = "⚡ Firewall Consolidado! ⚡";
+endMessage.innerHTML = Parabéns, Operador! Você defendeu os perímetros digitais. Pontuação: <strong>${score} pontos</strong> com <strong>${lives} vida(s)</strong> restantes.;
+} else {
+endTitle.textContent = "🚨 Blecaute Total de Dados 🚨";
+endMessage.innerHTML = A fortaleza colapsou. Seus dados foram criptografados. Pontuação adquirida: <strong>${score} pontos</strong>.;
+}
+}
+function restartGame() {
+startGame();
+}
