@@ -1,1 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield: Fortaleza Digital 🔐</title>
+    <style>
+        :root {
+            --bg-glow: #0a0f1d;
+            --card-bg: #131c33;
+            --neon-blue: #00f0ff;
+            --neon-green: #39ff14;
+            --neon-purple: #bd00ff;
+            --neon-red: #ff3131;
+            --text-main: #e2e8f0;
+            --text-dim: #64748b;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-glow);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-blue);
+            border-radius: 16px;
+            padding: 35px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            letter-spacing: 1px;
+        }
+
+        p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #fff;
+            border: 1px solid var(--neon-blue);
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 12px rgba(189, 0, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .btn.correct-choice {
+            border-color: var(--neon-green) !important;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.6) !important;
+            background: rgba(57, 255, 20, 0.1) !important;
+        }
+
+        .btn.wrong-choice {
+            border-color: var(--neon-red) !important;
+            box-shadow: 0 0 15px rgba(255, 49, 49, 0.6) !important;
+            background: rgba(255, 49, 49, 0.1) !important;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        #timer-display {
+            color: var(--neon-blue);
+            font-family: monospace;
+            font-size: 1.3rem;
+            text-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        #timer-display.danger {
+            color: var(--neon-red);
+            text-shadow: 0 0 8px var(--neon-red);
+            animation: pulse 1s infinite;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #0f172a;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            box-shadow: 0 0 8px var(--neon-blue);
+            transition: width 0.4s ease;
+        }
+
+        .scenarie-card {
+            background-color: #0b111e;
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--neon-blue);
+            text-align: left;
+            font-size: 1.15rem;
+            line-height: 1.5;
+        }
+
+        .feedback-card {
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: left;
+            animation: slideIn 0.3s ease;
+        }
+
+        .success-style {
+            background-color: rgba(57, 255, 20, 0.08);
+            border: 1px solid var(--neon-green);
+            color: #a3ff8d;
+        }
+
+        .error-style {
+            background-color: rgba(255, 49, 49, 0.08);
+            border: 1px solid var(--neon-red);
+            color: #ff9e9e;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+
+        .action-btn:hover {
+            box-shadow: 0 0 18px rgba(189, 0, 255, 0.7);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- TELA INICIAL -->
+        <div id="start-screen">
+            <h1>CyberShield 🔐</h1>
+            <p style="color: var(--neon-blue); font-weight: 600; margin-bottom: 10px;">🛡️ Treinamento de Defesa e Educação Digital</p>
+            <p>Seu sistema está sob constante ameaça hacker. Proteja sua fortaleza digital respondendo a 5 desafios críticos sobre segurança de dados, inteligência artificial e verificação de fontes. Você terá apenas 20 segundos por fase!</p>
+            <button class="btn action-btn" onclick="startGame()" style="text-align: center;">Iniciar Protocolo de Defesa</button>
+        </div>
+
+        <!-- TELA DE JOGO -->
+        <div id="game-screen" class="hidden">
+            <div class="status-header">
+                <span id="score-display">Pontos: 0</span>
+                <span id="timer-display">⏱️ 20s</span>
+                <span id="lives-display">Vidas: ❤️❤️❤️</span>
+            </div>
+            
+            <div class="progress-container">
+                <div id="progress-indicator" class="progress-bar"></div>
+            </div>
+            
+            <p style="text-align: left; font-weight: bold; color: var(--neon-blue); margin-bottom: 8px;">Desafio <span id="current-phase">1</span> de 5</p>
+            <div id="scenarie" class="scenarie-card">Carregando dados da matriz...</div>
+
+            <div id="options-container"></div>
+
+            <!-- Bloco de Feedback -->
+            <div id="feedback" class="feedback-card hidden">
+                <p id="feedback-text" style="color: inherit; margin-bottom: 15px;"></p>
+                <button class="btn action-btn" id="next-btn" onclick="nextPhase()" style="text-align: center; margin-bottom: 0;">Avançar Diretriz</button>
+            </div>
+        </div>
+
+        <!-- TELA FINAL -->
+        <div id="end-screen" class="hidden">
+            <h1 id="end-title">Fim da Simulação</h1>
+            <p id="end-message"></p>
+            <button class="btn action-btn" onclick="restartGame()" style="text-align: center;">Reiniciar Sistema</button>
+        </div>
+    </div>
+
+    <script>
+        const database = [
+            {
+                scenario: "Você precisa criar uma senha mestra para seu novo e-mail corporativo. Qual padrão oferece a maior resistência contra ataques digitais?",
+                options: [
+                    { text: "Admin2026! (Fácil de lembrar e digitação rápida)", correct: false },
+                    { text: "X#p9!mK2@zQ7 (Combinação caótica de letras, números e símbolos)", correct: true },
+                    { text: "senha_super_secreta (Longa e toda em letras minúsculas)", correct: false }
+                ],
+                explanation: "Criptoanálises mostram que misturar tamanhos de caixa, numerais e caracteres especiais eleva exponencialmente o tempo necessário para um hacker decifrar a senha."
+            },
+            {
+                scenario: "Um portal de notícias compartilha uma imagem chocante de um evento atual. Como você checa se a foto é real ou uma manipulação por Inteligência Artificial?",
+                options: [
+                    { text: "Verifico se o post tem muitas curtidas e comentários validando.", correct: false },
+                    { text: "Uso a busca reversa de imagens do Google e analiso distorções em detalhes como mãos e fundos.", correct: true },
+                    { text: "Se foi compartilhada por um amigo de confiança, considero verdadeira.", correct: false }
+                ],
+                explanation: "Imagens geradas por IA costumam falhar em padrões complexos (dedos, reflexos, textos borrados). A busca reversa localiza a publicação original."
+            },
+            {
+                scenario: "Ao usar uma Inteligência Artificial para estudar, você percebe que ela inventou referências de livros que nunca existiram. O que aconteceu?",
+                options: [
+                    { text: "A IA sofreu uma alucinação, gerando dados falsos baseados em probabilidade estatística.", correct: true },
+                    { text: "A IA acessou a deep web para achar livros secretos.", correct: false },
+                    { text: "O servidor da ferramenta foi invadido por um vírus naquele instante.", correct: false }
+                ],
