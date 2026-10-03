@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,7 +163,7 @@
             <p class="theme-desc">Tema: Segurança Digital e Senhas Fortes</p>
             <div class="instructions">
                 <h3>Como Jogar:</h3>
-                <p>Você tem 3 vidas. Responda aos 5 desafios sobre senhas seguras, phishing e navegação segura para proteger sua fortaleza digital!</p>
+                <p>Tens 3 vidas. Responde aos 5 desafios sobre senhas seguras, phishing e navegação segura para proteger a tua fortaleza digital!</p>
             </div>
             <button id="start-btn" class="btn">Começar Jogo</button>
         </div>
@@ -175,7 +175,7 @@
                 <span id="lives-counter">❤️ Vidas: 3</span>
             </div>
             <div id="question-container">
-                <h2 id="question-text">Carregando pergunta...</h2>
+                <h2 id="question-text">A carregar pergunta...</h2>
                 <div id="options-container" class="options-grid"></div>
             </div>
             <div id="feedback-container" class="hidden">
@@ -187,173 +187,176 @@
         <!-- Tela Final -->
         <div id="end-screen" class="screen">
             <h2 id="end-title">Fim de Jogo!</h2>
-            <p id="final-score">Sua pontuação: 0/5</p>
-            <p id="end-message">Parabéns por proteger sua fortaleza digital!</p>
+            <p id="final-score">A tua pontuação: 0/5</p>
+            <p id="end-message">Parabéns por protegeres a tua fortaleza digital!</p>
             <button id="restart-btn" class="btn">Jogar Novamente</button>
         </div>
     </div>
 
     <script>
-        const questions = [
-            {
-                question: "Qual das seguintes senhas é considerada mais segura contra ataques de força bruta?",
-                options: [
-                    "12345678",
-                    "senha2026",
-                    "P#9$mK!2qX",
-                    "meunome123"
-                ],
-                correct: 2,
-                explanation: "Senhas fortes combinam letras maiúsculas, minúsculas, números e símbolos especiais, tendo pelo menos 10 caracteres."
-            },
-            {
-                question: "Você recebeu um e-mail urgente do seu 'banco' pedindo para clicar num link e redefinir sua senha. O que você deve fazer?",
-                options: [
-                    "Clicar rapidamente para não perder a conta",
-                    "Desconfiar, pois é uma tática comum de phishing",
-                    "Responder ao e-mail informando sua senha atual",
-                    "Enviar o link para seus amigos"
-                ],
-                correct: 1,
-                explanation: "Isso é phishing! Bancos nunca pedem redefinição de senha por e-mail com links diretos."
-            },
-            {
-                question: "O que significa ativar a Autenticação de Dois Fatores (2FA)?",
-                options: [
-                    "Usar duas senhas iguais em contas diferentes",
-                    "Adicionar uma camada extra de segurança além da senha (como um código via SMS ou app)",
-                    "Compartilhar sua senha com um amigo de confiança",
-                    "Trocar de senha a cada dois dias"
-                ],
-                correct: 1,
-                explanation: "O 2FA exige um código adicional ou confirmação, dificultando muito o acesso por invasores mesmo se descobrirem sua senha."
-            },
-            {
-                question: "Ao usar um computador público (como na escola ou lan house), qual é a melhor prática ao terminar de usar suas redes sociais?",
-                options: [
-                    "Apenas fechar a aba do navegador",
-                    "Desligar o computador direto na tomada",
-                    "Fazer o logout (sair da conta) e limpar os dados de navegação",
-                    "Minimizar a janela"
-                ],
-                correct: 2,
-                explanation: "Sempre faça logout e limpe os dados para evitar que o próximo usuário acesse suas contas pessoais."
-            },
-            {
-                question: "Qual característica indica que um site de compras ou login é mais seguro (possui criptografia)?",
-                options: [
-                    "Ter muitas cores brilhantes e pop-ups",
-                    "O endereço começar com HTTPS:// e ter um ícone de cadeado",
-                    "Ter erros ortográficos no texto",
-                    "Ser recomendado por um anúncio em rede social"
-                ],
-                correct: 1,
-                explanation: "O protocolo HTTPS e o cadeado indicam que os dados trocados entre você e o site estão criptografados e seguros."
-            }
-        ];
+        // Garante que o script só corre depois de carregar toda a página HTML
+        document.addEventListener("DOMContentLoaded", () => {
+            const questions = [
+                {
+                    question: "Qual das seguintes senhas é considerada mais segura contra ataques de força bruta?",
+                    options: [
+                        "12345678",
+                        "senha2026",
+                        "P#9$mK!2qX",
+                        "meunome123"
+                    ],
+                    correct: 2,
+                    explanation: "As senhas fortes combinam letras maiúsculas, minúsculas, números e símbolos especiais, tendo pelo menos 10 caracteres."
+                },
+                {
+                    question: "Recebeste um e-mail urgente do teu 'banco' a pedir para clicares num link e redefinires a tua senha. O que deves fazer?",
+                    options: [
+                        "Clicar rapidamente para não perder a conta",
+                        "Desconfiar, pois é uma tática comum de phishing",
+                        "Responder ao e-mail informando a tua senha atual",
+                        "Enviar o link para os teus amigos"
+                    ],
+                    correct: 1,
+                    explanation: "Isto é phishing! Os bancos nunca pedem redefinição de senha por e-mail com links diretos."
+                },
+                {
+                    question: "O que significa ativar a Autenticação de Dois Fatores (2FA)?",
+                    options: [
+                        "Usar duas senhas iguais em contas diferentes",
+                        "Adicionar uma camada extra de segurança além da senha (como um código via SMS ou aplicação)",
+                        "Partilhar a tua senha com um amigo de confiança",
+                        "Trocar de senha a cada dois dias"
+                    ],
+                    correct: 1,
+                    explanation: "O 2FA exige um código adicional ou confirmação, dificultando muito o acesso por invasores mesmo que descubram a tua senha."
+                },
+                {
+                    question: "Ao usar um computador público (como na escola ou biblioteca), qual é a melhor prática ao terminar de usar as tuas redes sociais?",
+                    options: [
+                        "Apenas fechar o separador do navegador",
+                        "Desligar o computador diretamente na tomada",
+                        "Fazer o logout (sair da conta) e limpar os dados de navegação",
+                        "Minimizar a janela"
+                    ],
+                    correct: 2,
+                    explanation: "Faz sempre logout e limpa os dados para evitar que o próximo utilizador aceda às tuas contas pessoais."
+                },
+                {
+                    question: "Qual característica indica que um site de compras ou login é mais seguro (possui criptografia)?",
+                    options: [
+                        "Ter muitas cores brilhantes e janelas pop-up",
+                        "O endereço começar com HTTPS:// e ter um ícone de cadeado",
+                        "Ter erros ortográficos no texto",
+                        "Ser recomendado por um anúncio em rede social"
+                    ],
+                    correct: 1,
+                    explanation: "O protocolo HTTPS e o cadeado indicam que os dados trocados entre ti e o site estão criptografados e seguros."
+                }
+            ];
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let lives = 3;
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let lives = 3;
 
-        const startScreen = document.getElementById("start-screen");
-        const gameScreen = document.getElementById("game-screen");
-        const endScreen = document.getElementById("end-screen");
-        const startBtn = document.getElementById("start-btn");
-        const restartBtn = document.getElementById("restart-btn");
-        const questionText = document.getElementById("question-text");
-        const optionsContainer = document.getElementById("options-container");
-        const questionCounter = document.getElementById("question-counter");
-        const livesCounter = document.getElementById("lives-counter");
-        const feedbackContainer = document.getElementById("feedback-container");
-        const feedbackText = document.getElementById("feedback-text");
-        const nextBtn = document.getElementById("next-btn");
-        const finalScore = document.getElementById("final-score");
-        const endTitle = document.getElementById("end-title");
-        const endMessage = document.getElementById("end-message");
+            const startScreen = document.getElementById("start-screen");
+            const gameScreen = document.getElementById("game-screen");
+            const endScreen = document.getElementById("end-screen");
+            const startBtn = document.getElementById("start-btn");
+            const restartBtn = document.getElementById("restart-btn");
+            const questionText = document.getElementById("question-text");
+            const optionsContainer = document.getElementById("options-container");
+            const questionCounter = document.getElementById("question-counter");
+            const livesCounter = document.getElementById("lives-counter");
+            const feedbackContainer = document.getElementById("feedback-container");
+            const feedbackText = document.getElementById("feedback-text");
+            const nextBtn = document.getElementById("next-btn");
+            const finalScore = document.getElementById("final-score");
+            const endTitle = document.getElementById("end-title");
+            const endMessage = document.getElementById("end-message");
 
-        startBtn.addEventListener("click", startGame);
-        restartBtn.addEventListener("click", restartGame);
-        nextBtn.addEventListener("click", nextQuestion);
+            startBtn.addEventListener("click", startGame);
+            restartBtn.addEventListener("click", restartGame);
+            nextBtn.addEventListener("click", nextQuestion);
 
-        function startGame() {
-            startScreen.classList.remove("active");
-            gameScreen.classList.add("active");
-            currentQuestionIndex = 0;
-            score = 0;
-            lives = 3;
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            feedbackContainer.classList.add("hidden");
-            const currentQ = questions[currentQuestionIndex];
-            questionCounter.textContent = `Desafio ${currentQuestionIndex + 1}/5`;
-            livesCounter.textContent = `❤️ Vidas: ${lives}`;
-            questionText.textContent = currentQ.question;
-            
-            optionsContainer.innerHTML = "";
-            currentQ.options.forEach((option, index) => {
-                const btn = document.createElement("button");
-                btn.textContent = option;
-                btn.classList.add("option-btn");
-                btn.addEventListener("click", () => selectOption(index));
-                optionsContainer.appendChild(btn);
-            });
-        }
-
-        function selectOption(selectedIndex) {
-            const currentQ = questions[currentQuestionIndex];
-            const optionButtons = optionsContainer.querySelectorAll(".option-btn");
-
-            optionButtons.forEach(btn => btn.disabled = true);
-
-            if (selectedIndex === currentQ.correct) {
-                optionButtons[selectedIndex].classList.add("correct");
-                score++;
-                feedbackText.innerHTML = `<strong>✅ Correto!</strong> ${currentQ.explanation}`;
-            } else {
-                optionButtons[selectedIndex].classList.add("incorrect");
-                optionButtons[currentQ.correct].classList.add("correct");
-                lives--;
-                livesCounter.textContent = `❤️ Vidas: ${lives}`;
-                feedbackText.innerHTML = `<strong>❌ Incorreto!</strong> ${currentQ.explanation}`;
-            }
-
-            feedbackContainer.classList.remove("hidden");
-
-            if (lives <= 0) {
-                setTimeout(() => endGame(false), 2000);
-            }
-        }
-
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length && lives > 0) {
+            function startGame() {
+                startScreen.classList.remove("active");
+                gameScreen.classList.add("active");
+                currentQuestionIndex = 0;
+                score = 0;
+                lives = 3;
                 loadQuestion();
-            } else {
-                endGame(score >= 3);
             }
-        }
 
-        function endGame(won) {
-            gameScreen.classList.remove("active");
-            endScreen.classList.add("active");
-            finalScore.textContent = `Sua pontuação: ${score}/5`;
-            
-            if (won && lives > 0) {
-                endTitle.textContent = "🏆 Vitória!";
-                endMessage.textContent = "Parabéns! Você protegeu com sucesso sua fortaleza digital contra ameaças!";
-            } else {
-                endTitle.textContent = "⚠️ Fim de Jogo!";
-                endMessage.textContent = "Suas vidas acabaram. Revise os conceitos de segurança digital e tente novamente!";
+            function loadQuestion() {
+                feedbackContainer.classList.add("hidden");
+                const currentQ = questions[currentQuestionIndex];
+                questionCounter.textContent = `Desafio ${currentQuestionIndex + 1}/5`;
+                livesCounter.textContent = `❤️ Vidas: ${lives}`;
+                questionText.textContent = currentQ.question;
+                
+                optionsContainer.innerHTML = "";
+                currentQ.options.forEach((option, index) => {
+                    const btn = document.createElement("button");
+                    btn.textContent = option;
+                    btn.classList.add("option-btn");
+                    btn.addEventListener("click", () => selectOption(index));
+                    optionsContainer.appendChild(btn);
+                });
             }
-        }
 
-        function restartGame() {
-            endScreen.classList.remove("active");
-            startScreen.classList.add("active");
-        }
+            function selectOption(selectedIndex) {
+                const currentQ = questions[currentQuestionIndex];
+                const optionButtons = optionsContainer.querySelectorAll(".option-btn");
+
+                optionButtons.forEach(btn => btn.disabled = true);
+
+                if (selectedIndex === currentQ.correct) {
+                    optionButtons[selectedIndex].classList.add("correct");
+                    score++;
+                    feedbackText.innerHTML = `<strong>✅ Correto!</strong> ${currentQ.explanation}`;
+                } else {
+                    optionButtons[selectedIndex].classList.add("incorrect");
+                    optionButtons[currentQ.correct].classList.add("correct");
+                    lives--;
+                    livesCounter.textContent = `❤️ Vidas: ${lives}`;
+                    feedbackText.innerHTML = `<strong>❌ Incorreto!</strong> ${currentQ.explanation}`;
+                }
+
+                feedbackContainer.classList.remove("hidden");
+
+                if (lives <= 0) {
+                    setTimeout(() => endGame(false), 2000);
+                }
+            }
+
+            function nextQuestion() {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length && lives > 0) {
+                    loadQuestion();
+                } else {
+                    endGame(score >= 3);
+                }
+            }
+
+            function endGame(won) {
+                gameScreen.classList.remove("active");
+                endScreen.classList.add("active");
+                finalScore.textContent = `A tua pontuação: ${score}/5`;
+                
+                if (won && lives > 0) {
+                    endTitle.textContent = "🏆 Vitória!";
+                    endMessage.textContent = "Parabéns! Protegeste com sucesso a tua fortaleza digital contra ameaças!";
+                } else {
+                    endTitle.textContent = "⚠️ Fim de Jogo!";
+                    endMessage.textContent = "As tuas vidas acabaram. Revisi os conceitos de segurança digital e tenta novamente!";
+                }
+            }
+
+            function restartGame() {
+                endScreen.classList.remove("active");
+                startScreen.classList.add("active");
+            }
+        });
     </script>
 </body>
 </html>
