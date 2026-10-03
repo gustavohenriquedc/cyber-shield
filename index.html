@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortaleza das Senhas - Edição Definitiva</title>
+    <title>Fortaleza das Senhas - O Diário de Léo</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: radial-gradient(circle, #0f172a, #020617);
+            background: linear-gradient(135deg, #090d16, #1e1b4b);
             color: #f8fafc;
             display: flex;
             justify-content: center;
@@ -21,14 +21,14 @@
             padding: 1rem;
         }
         .container {
-            background: #1e293b;
+            background: #0f172a;
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             width: 100%;
-            max-width: 500px;
+            max-width: 540px;
             text-align: center;
-            border: 1px solid #334155;
+            border: 2px solid #334155;
         }
         .screen {
             display: none;
@@ -38,13 +38,13 @@
         }
         h1 {
             color: #38bdf8;
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
         .theme-desc {
             color: #94a3b8;
             margin-bottom: 1.5rem;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         .input-group {
             margin-bottom: 1.2rem;
@@ -59,7 +59,7 @@
         .input-field {
             width: 100%;
             padding: 0.85rem;
-            background: #0f172a;
+            background: #020617;
             border: 1px solid #475569;
             border-radius: 8px;
             color: #f8fafc;
@@ -80,95 +80,92 @@
             cursor: pointer;
             width: 100%;
             transition: transform 0.1s, filter 0.2s;
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
         .btn:hover {
             filter: brightness(1.1);
             transform: translateY(-2px);
         }
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            font-weight: bold;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-        /* Estatísticas de Jogo (Moedas e Vidas) */
-        .stats-bar {
-            display: flex;
-            justify-content: space-between;
-            background: #0f172a;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            font-weight: bold;
-            border: 1px solid #334155;
-        }
-        .coins-display {
-            color: #facc15;
-        }
-        /* Barra de Progresso Visual */
-        .progress-track {
-            background: #0f172a;
-            border-radius: 999px;
-            height: 8px;
-            width: 100%;
+        /* Estilo do Ambiente de Trabalho / Computador */
+        .computer-workspace {
+            background: #020617;
+            border-radius: 12px;
+            border: 2px solid #334155;
+            padding: 1.2rem;
             margin-bottom: 1.2rem;
-            overflow: hidden;
-            border: 1px solid #334155;
-        }
-        .progress-fill {
-            background: #38bdf8;
-            height: 100%;
-            width: 0%;
-            transition: width 0.4s ease-in-out;
-        }
-        .scenario-box {
-            background: #0f172a;
-            padding: 1.25rem;
-            border-radius: 10px;
-            margin-bottom: 1.2rem;
-            border: 1px solid #334155;
             text-align: left;
         }
-        #scenario-text {
-            font-size: 1.05rem;
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 0.5rem;
+        }
+        /* Caixa de Diálogo com Personagem */
+        .character-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .avatar {
+            width: 55px;
+            height: 55px;
+            background: #334155;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            border: 2px solid #38bdf8;
+        }
+        .speech-bubble {
+            background: #1e293b;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             color: #f8fafc;
             line-height: 1.4;
+            width: 100%;
+            border-left: 4px solid #38bdf8;
         }
-        .action-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* Opções de Escolha do Quotidiano */
+        .choices-grid {
+            display: flex;
+            flex-direction: column;
             gap: 0.75rem;
+            margin-top: 1rem;
         }
-        .action-btn {
-            padding: 0.9rem;
+        .choice-btn {
+            background: #1e293b;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            padding: 0.85rem;
             border-radius: 8px;
-            border: none;
-            font-size: 0.95rem;
-            font-weight: bold;
+            text-align: left;
             cursor: pointer;
-            transition: transform 0.1s, filter 0.2s;
+            transition: background 0.2s, border-color 0.2s;
+            font-size: 0.9rem;
         }
-        .action-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
+        .choice-btn:hover:not(:disabled) {
+            background: #334155;
+            border-color: #38bdf8;
         }
-        .btn-safe {
-            background: #166534;
-            color: #f0fdf4;
-            border: 1px solid #22c55e;
+        .choice-btn.correct {
+            background: #15803d !important;
+            border-color: #22c55e !important;
         }
-        .btn-danger {
-            background: #991b1b;
-            color: #fef2f2;
-            border: 1px solid #ef4444;
+        .choice-btn.incorrect {
+            background: #b91c1c !important;
+            border-color: #ef4444 !important;
         }
-        .action-btn:disabled {
-            opacity: 0.5;
+        .choice-btn:disabled {
             cursor: not-allowed;
+            opacity: 0.7;
         }
         /* Animação de tremor ao errar */
         @keyframes shake {
@@ -182,22 +179,19 @@
         .hidden {
             display: none !important;
         }
-        #feedback-container {
+        #feedback-box {
             margin-top: 1rem;
             padding: 0.85rem;
-            background: #0f172a;
+            background: #1e293b;
             border-radius: 8px;
             text-align: left;
             border-left: 4px solid #facc15;
-            border: 1px solid #334155;
-        }
-        #feedback-text {
             font-size: 0.85rem;
-            color: #cbd5e1;
             line-height: 1.4;
+            color: #cbd5e1;
         }
         #final-score {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #38bdf8;
             margin: 0.5rem 0;
@@ -216,105 +210,100 @@
     </style>
 </head>
 <body>
-    <div class="container" id="main-container">
-        <!-- Ecrã 1: Registo de Autonomia (Nome do Jogador) -->
+    <div class="container">
+        <!-- Ecrã 1: Entrada com Nome do Operador -->
         <div id="start-screen" class="screen active">
-            <h1>🔐 Fortaleza das Senhas</h1>
-            <p class="theme-desc">Modo Campanha Interativa</p>
+            <h1>🔐 O Diário de Léo</h1>
+            <p class="theme-desc">Missão Quotidiana de Cibersegurança</p>
             <div class="input-group">
-                <label for="player-name">Insere o teu Nome de Operador:</label>
-                <input type="text" id="player-name" class="input-field" placeholder="Ex: Alex Ciber" maxlength="20">
+                <label for="player-name">Como te chamas, Especialista?</label>
+                <input type="text" id="player-name" class="input-field" placeholder="Ex: Beatriz" maxlength="20">
             </div>
-            <button id="start-btn" class="btn">🚀 Começar Missão</button>
+            <button id="start-btn" class="btn">💻 Entrar no Sistema</button>
         </div>
 
-        <!-- Ecrã 2: Jogo Principal -->
+        <!-- Ecrã 2: Jogo com História e Estação de Trabalho -->
         <div id="game-screen" class="screen">
-            <div class="game-header">
-                <span id="welcome-user">Operador: ---</span>
-                <span id="challenge-counter">Fase 1/5</span>
+            <div class="computer-workspace">
+                <div class="workspace-header">
+                    <span id="chapter-indicator">Capítulo 1/5</span>
+                    <span id="stats-indicator">🪙 Moedas: 0 | ❤ Vidas: 3</span>
+                </div>
+                <!-- Personagem e Diálogo -->
+                <div class="character-box">
+                    <div class="avatar">👨‍💻</div>
+                    <div class="speech-bubble">
+                        <strong id="character-name" style="color: #38bdf8;">Léo:</strong>
+                        <p id="narrative-text" style="margin-top: 0.3rem;">A carregar situação...</p>
+                    </div>
+                </div>
+                <!-- Opções de Ação no Quotidiano -->
+                <div id="choices-container" class="choices-grid"></div>
             </div>
-            <!-- Barra de Estatísticas (Moedas e Vidas) -->
-            <div class="stats-bar">
-                <span class="coins-display" id="coins-label">🪙 Moedas: 0</span>
-                <span id="lives-label">❤️ Vidas: 3</span>
-            </div>
-            <!-- Barra de Progresso Visual -->
-            <div class="progress-track">
-                <div id="progress-fill" class="progress-fill"></div>
-            </div>
-            <div class="scenario-box">
-                <p id="scenario-text">A carregar cenário...</p>
-            </div>
-            <div id="action-container" class="action-grid">
-                <button id="safe-btn" class="action-btn btn-safe">🛡️ Seguro</button>
-                <button id="danger-btn" class="action-btn btn-danger">🚨 Golpe</button>
-            </div>
-            <div id="feedback-container" class="hidden">
+            <div id="feedback-box" class="hidden">
                 <p id="feedback-text"></p>
-                <button id="next-btn" class="btn" style="margin-top: 0.8rem; font-size: 0.9rem; padding: 0.6rem;">Avançar ➔</button>
+                <button id="next-btn" class="btn" style="margin-top: 0.8rem; font-size: 0.9rem; padding: 0.6rem;">Continuar História ➔</button>
             </div>
         </div>
 
-        <!-- Ecrã 3: Fim de Jogo e Recordes -->
+        <!-- Ecrã 3: Fim de Jogo / Conclusão -->
         <div id="end-screen" class="screen">
-            <h2 id="end-title">Fim de Jogo</h2>
+            <h2 id="end-title">Fim da Missão</h2>
             <p id="final-score">Pontuação: 0/5</p>
-            <p id="coins-earned">Moedas ganhas: 0 🪙</p>
             <p id="high-score">Recorde Pessoal: 0</p>
-            <p id="end-message">Relatório guardado com sucesso.</p>
+            <p id="end-message">O computador do Léo está seguro.</p>
             <button id="restart-btn" class="btn">🔄 Jogar Novamente</button>
         </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const scenarioBank = [
+            // História baseada em situações do quotidiano com o personagem Léo
+            const storyChapters = [
                 {
-                    text: "Recebeste um SMS urgente do teu banco a solicitar clique num link encurtado 'bit.ly/atualizar-conta'.",
-                    isSafe: false,
-                    explanation: "Detetado Phishing! Bancos legítimos nunca utilizam URLs encurtados por SMS."
+                    dialogue: "Epa, malta! Acabei de ligar o meu computador na sala de estar e recebi uma mensagem urgente no telemóvel a dizer que o meu banco bloqueou a conta. Pede para clicar num link encurtado 'bit.ly/banco-alerta'. O que é que eu faço?",
+                    options: [
+                        { text: "Clico logo no link para ver o que aconteceu com a minha conta.", isCorrect: false, explanation: "Erro! O Léo caiu num golpe de phishing. Bancos nunca enviam links encurtados por SMS com urgência." },
+                        { text: "Ignoro a mensagem e acedo à aplicação oficial do banco para verificar se há algum problema real.", isCorrect: true, explanation: "Excelente escolha! Verificar diretamente na aplicação oficial evita qualquer tentativa de roubo de dados." },
+                        { text: "Respondo à mensagem a perguntar qual é a minha senha atual.", isCorrect: false, explanation: "Perigoso! Nunca partilhes dados confidenciais ou senhas por mensagens." }
+                    ]
                 },
                 {
-                    text: "Configuraste uma palavra-passe complexa utilizando letras maiúsculas, minúsculas, números e símbolos.",
-                    isSafe: true,
-                    explanation: "Correto! A alta entropia desta senha bloqueia ataques informáticos de força bruta."
+                    dialogue: "Ok, livrei-me desse susto! Agora preciso de criar uma nova palavra-passe para o meu e-mail principal. Qual destas opções devo escolher para ninguém adivinhar?",
+                    options: [
+                        { text: "Usar o meu nome seguido do ano de nascimento: 'leo2026'.", isCorrect: false, explanation: "Fraco! Dados pessoais são fáceis de adivinhar por qualquer pessoa nas redes sociais." },
+                        { text: "Usar uma sequência simples como '12345678'.", isCorrect: false, explanation: "Muito vulnerável! É a primeira senha que programas de invasão testam." },
+                        { text: "Combinar letras maiúsculas, minúsculas, números e símbolos especiais (Ex: P#9$mK!2qX).", isCorrect: true, explanation: "Perfeito! A alta complexidade blinda a conta contra ataques de força bruta." }
+                    ]
                 },
                 {
-                    text: "Um utilizador desconhecido numa rede social pede o código numérico de autenticação por SMS recebido no teu telemóvel.",
-                    isSafe: false,
-                    explanation: "Armadilha crítica! Partilhar o código de 2FA concede acesso imediato ao invasor."
+                    dialogue: "Entendido! Ativei a senha forte. Mas agora recebi um aviso a pedir para configurar a Autenticação de Dois Fatores (2FA). Vale a pena perder tempo com isso?",
+                    options: [
+                        { text: "Sim! Adiciona uma camada extra de segurança, exigindo um código no telemóvel além da senha.", isCorrect: true, explanation: "Fantástico! Mesmo que alguém descubra a senha, não consegue entrar sem o código do 2FA." },
+                        { text: "Não, é só uma chatice que atrasa o login nas redes sociais.", isCorrect: false, explanation: "Cuidado! Sem o 2FA, a tua conta fica muito mais vulnerável a invasões." },
+                        { text: "Apenas se eu partilhar a senha com os meus amigos.", isCorrect: false, explanation: "Errado. Senhas e códigos de acesso nunca devem ser partilhados." }
+                    ]
                 },
                 {
-                    text: "Ativaste a Autenticação de Dois Fatores (2FA) com uma aplicação de segurança dedicada nas tuas contas essenciais.",
-                    isSafe: true,
-                    explanation: "Excelente! O 2FA impede o acesso não autorizado mesmo que a palavra-passe seja comprometida."
+                    dialogue: "Boa, ativei o 2FA. Agora estou na escola e encontrei uma pen USB perdida no chão do corredor. O que faço com ela?",
+                    options: [
+                        { text: "Ligo imediatamente ao meu computador para ver se encontro o dono através dos ficheiros.", isCorrect: false, explanation: "Perigo de Malware! Pen drives desconhecidas podem conter códigos maliciosos automáticos." },
+                        { text: "Entrego a pen drive na secretaria ou na direção da escola para achados e perdidos.", isCorrect: true, explanation: "Atitude correta! Evita infetar o computador com vírus escondidos no dispositivo." },
+                        { text: "Levo para casa e formato-a para ficar com uma pen nova de graça.", isCorrect: false, explanation: "Riscado! Só de ligar a pen ao computador, o malware pode ser executado." }
+                    ]
                 },
                 {
-                    text: "Encontraste uma pen USB desconhecida no chão da escola e decidiste ligá-la imediatamente ao computador.",
-                    isSafe: false,
-                    explanation: "Perigo de Malware! Dispositivos de armazenamento desconhecidos podem executar código malicioso."
-                },
-                {
-                    text: "Após terminar de utilizar o computador público na biblioteca, fizeste o logout completo e limpaste os dados de navegação.",
-                    isSafe: true,
-                    explanation: "Procedimento exemplar! Evita que utilizadores seguintes acedam às tuas sessões."
-                },
-                {
-                    text: "Um site de comércio eletrónico oferece prémios incríveis, mas o endereço começa por 'http://' sem ícone de cadeado.",
-                    isSafe: false,
-                    explanation: "Alerta de Fraude! A ausência de HTTPS indica que a ligação não está encriptada."
-                },
-                {
-                    text: "Optaste por utilizar uma palavra-passe totalmente distinta e exclusiva para cada serviço ou plataforma digital.",
-                    isSafe: true,
-                    explanation: "Perfeito! Isola o risco para que uma eventual falha num site não afete as restantes contas."
+                    dialogue: "Por fim, precisei de usar um computador público na biblioteca da cidade para pesquisar um trabalho. Antes de ir embora, qual é o procedimento ideal?",
+                    options: [
+                        { text: "Apenas fechar a aba do navegador e levantar-me.", isCorrect: false, explanation: "Inseguro! As tuas contas continuam abertas para o próximo utilizador." },
+                        { text: "Desligar o computador diretamente no botão da torre.", isCorrect: false, explanation: "Isso pode danificar o sistema operativo do computador da biblioteca." },
+                        { text: "Fazer o logout (terminar sessão) em todas as contas e limpar os dados de navegação.", isCorrect: true, explanation: "Perfeito! Garante total privacidade e impede que terceiros acedam aos teus dados." }
+                    ]
                 }
             ];
 
             let playerName = "";
-            let activeScenarios = [];
-            let currentIndex = 0;
+            let currentChapter = 0;
             let score = 0;
             let coins = 0;
             let lives = 3;
@@ -325,20 +314,14 @@
             const startBtn = document.getElementById("start-btn");
             const restartBtn = document.getElementById("restart-btn");
             const playerNameInput = document.getElementById("player-name");
-            const welcomeUser = document.getElementById("welcome-user");
-            const scenarioText = document.getElementById("scenario-text");
-            const challengeCounter = document.getElementById("challenge-counter");
-            const coinsLabel = document.getElementById("coins-label");
-            const livesLabel = document.getElementById("lives-label");
-            const progressFill = document.getElementById("progress-fill");
-            const safeBtn = document.getElementById("safe-btn");
-            const dangerBtn = document.getElementById("danger-btn");
-            const actionContainer = document.getElementById("action-container");
-            const feedbackContainer = document.getElementById("feedback-container");
+            const chapterIndicator = document.getElementById("chapter-indicator");
+            const statsIndicator = document.getElementById("stats-indicator");
+            const narrativeText = document.getElementById("narrative-text");
+            const choicesContainer = document.getElementById("choices-container");
+            const feedbackBox = document.getElementById("feedback-box");
             const feedbackText = document.getElementById("feedback-text");
             const nextBtn = document.getElementById("next-btn");
             const finalScore = document.getElementById("final-score");
-            const coinsEarned = document.getElementById("coins-earned");
             const highScoreText = document.getElementById("high-score");
             const endTitle = document.getElementById("end-title");
             const endMessage = document.getElementById("end-message");
@@ -346,7 +329,7 @@
             startBtn.addEventListener("click", () => {
                 const name = playerNameInput.value.trim();
                 if (name === "") {
-                    alert("Por favor, insere o teu nome de operador para continuar!");
+                    alert("Por favor, insere o teu nome de operador!");
                     return;
                 }
                 playerName = name;
@@ -358,88 +341,73 @@
                 startScreen.classList.add("active");
             });
 
-            nextBtn.addEventListener("click", nextChallenge);
-            safeBtn.addEventListener("click", () => handleChoice(true));
-            dangerBtn.addEventListener("click", () => handleChoice(false));
+            nextBtn.addEventListener("click", nextChapter);
 
             function startGame() {
                 startScreen.classList.remove("active");
                 gameScreen.classList.add("active");
                 
-                currentIndex = 0;
+                currentChapter = 0;
                 score = 0;
                 coins = 0;
                 lives = 3;
 
-                welcomeUser.textContent = `Operador: ${playerName}`;
-                updateStats();
-
-                // Baralha e selecciona 5 cenários aleatórios para a partida
-                activeScenarios = [...scenarioBank].sort(() => Math.random() - 0.5).slice(0, 5);
-                loadChallenge();
+                loadChapter();
             }
 
-            function loadChallenge() {
-                feedbackContainer.classList.add("hidden");
-                actionContainer.style.display = "grid";
-                safeBtn.disabled = false;
-                dangerBtn.disabled = false;
+            function loadChapter() {
+                feedbackBox.classList.add("hidden");
+                choicesContainer.style.display = "flex";
 
-                const current = activeScenarios[currentIndex];
-                challengeCounter.textContent = `Fase ${currentIndex + 1}/5`;
-                scenarioText.textContent = current.text;
+                const chapter = storyChapters[currentChapter];
+                chapterIndicator.textContent = `Capítulo ${currentChapter + 1}/${storyChapters.length}`;
+                statsIndicator.textContent = `🪙 Moedas: ${coins} | ❤ Vidas: ${lives}`;
+                narrativeText.textContent = chapter.dialogue;
 
-                // Atualiza a barra de progresso visual
-                const progressPercentage = (currentIndex / activeScenarios.length) * 100;
-                progressFill.style.width = `${progressPercentage}%`;
+                choicesContainer.innerHTML = "";
+                chapter.options.forEach((opt, index) => {
+                    const btn = document.createElement("button");
+                    btn.textContent = opt.text;
+                    btn.classList.add("choice-btn");
+                    btn.addEventListener("click", () => selectOption(index, btn));
+                    choicesContainer.appendChild(btn);
+                });
             }
 
-            function updateStats() {
-                coinsLabel.textContent = `🪙 Moedas: ${coins}`;
-                livesLabel.textContent = `❤️️ Vidas: ${lives}`;
-            }
+            function selectOption(selectedIndex, selectedBtn) {
+                const chapter = storyChapters[currentChapter];
+                const optionButtons = choicesContainer.querySelectorAll(".choice-btn");
 
-            function handleChoice(userChoice) {
-                safeBtn.disabled = true;
-                dangerBtn.disabled = true;
+                optionButtons.forEach(btn => btn.disabled = true);
 
-                const current = activeScenarios[currentIndex];
-                actionContainer.style.display = "none";
-
-                if (userChoice === current.isSafe) {
+                if (chapter.options[selectedIndex].isCorrect) {
+                    optionButtons[selectedIndex].classList.add("correct");
                     score++;
-                    coins += 20; // Recompensa de 20 moedas por acerto
-                    updateStats();
-                    feedbackText.innerHTML = `<strong>✅ Correto!</strong> Ganhaste 🪙 20 moedas.<br>${current.explanation}`;
+                    coins += 30;
+                    feedbackText.innerHTML = `<strong>✅ Boa escolha!</strong> ${chapter.options[selectedIndex].explanation}`;
                 } else {
+                    optionButtons[selectedIndex].classList.add("incorrect");
+                    optionButtons[chapter.options.findIndex(o => o.isCorrect)].classList.add("correct");
+                    
+                    selectedBtn.classList.add("shake");
+                    setTimeout(() => selectedBtn.classList.remove("shake"), 400);
+
                     lives--;
-                    updateStats();
-                    if (!userChoice) dangerBtn.classList.add("shake");
-                    else safeBtn.classList.add("shake");
-
-                    setTimeout(() => {
-                        safeBtn.classList.remove("shake");
-                        dangerBtn.classList.remove("shake");
-                    }, 400);
-
-                    feedbackText.innerHTML = `<strong>❌ Errado!</strong> Perdiste 1 vida.<br>${current.explanation}`;
+                    feedbackText.innerHTML = `<strong>❌ Ops! Cuidado com isso.</strong> ${chapter.options[selectedIndex].explanation}`;
                 }
 
-                feedbackContainer.classList.remove("hidden");
-
-                // Atualiza progresso da fase atual
-                const progressPercentage = ((currentIndex + 1) / activeScenarios.length) * 100;
-                progressFill.style.width = `${progressPercentage}%`;
+                statsIndicator.textContent = `🪙 Moedas: ${coins} | ❤ Vidas: ${lives}`;
+                feedbackBox.classList.remove("hidden");
 
                 if (lives <= 0) {
-                    setTimeout(() => endGame(false), 2000);
+                    setTimeout(() => endGame(false), 2500);
                 }
             }
 
-            function nextChallenge() {
-                currentIndex++;
-                if (currentIndex < activeScenarios.length && lives > 0) {
-                    loadChallenge();
+            function nextChapter() {
+                currentChapter++;
+                if (currentChapter < storyChapters.length && lives > 0) {
+                    loadChapter();
                 } else {
                     endGame(score >= 3);
                 }
@@ -448,22 +416,21 @@
             function endGame(won) {
                 gameScreen.classList.remove("active");
                 endScreen.classList.add("active");
-                finalScore.textContent = `Pontuação: ${score}/5`;
-                coinsEarned.textContent = `Total de Moedas: ${coins} 🪙`;
+                finalScore.textContent = `Pontuação: ${score}/${storyChapters.length} (Moedas: ${coins} 🪙)`;
 
-                let savedHighScore = localStorage.getItem("ultimateHighScore") || 0;
+                let savedHighScore = localStorage.getItem("storyHighScore") || 0;
                 if (score > savedHighScore) {
                     savedHighScore = score;
-                    localStorage.setItem("ultimateHighScore", savedHighScore);
+                    localStorage.setItem("storyHighScore", savedHighScore);
                 }
-                highScoreText.textContent = `🏆 Recorde Pessoal: ${savedHighScore}/5`;
+                highScoreText.textContent = `🏆 Recorde Pessoal: ${savedHighScore}/${storyChapters.length}`;
 
                 if (won && lives > 0) {
-                    endTitle.textContent = `🏆 Parabéns, ${playerName}!`;
-                    endMessage.textContent = "Missão concluída com sucesso! Demonstraste excelente domínio em cibersegurança.";
+                    endTitle.textContent = `🏆 Missão Concluída, ${playerName}!`;
+                    endMessage.textContent = "Ajudaste o Léo a blindar o computador e a navegar com total segurança no quotidiano!";
                 } else {
-                    endTitle.textContent = `⚠️ Fim de Jogo, ${playerName}`;
-                    endMessage.textContent = "As tuas vidas esgotaram-se. Analisa os conceitos e tenta novamente para bater o recorde!";
+                    endTitle.textContent = `⚠️ Sistema Comprometido, ${playerName}`;
+                    endMessage.textContent = "As vidas esgotaram-se devido aos golpes digitais. Analisa as dicas e tenta novamente!";
                 }
             }
         });
