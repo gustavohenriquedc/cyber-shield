@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortaleza das Senhas - Jogo de Educação Digital</title>
+    <title>Fortaleza das Senhas - Edição Definitiva</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background: radial-gradient(circle, #0f172a, #020617);
             color: #f8fafc;
             display: flex;
             justify-content: center;
@@ -24,7 +24,7 @@
             background: #1e293b;
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             width: 100%;
             max-width: 500px;
             text-align: center;
@@ -36,36 +36,41 @@
         .screen.active {
             display: block;
         }
-        h1, h2 {
-            margin-bottom: 1rem;
+        h1 {
             color: #38bdf8;
             font-size: 1.75rem;
+            margin-bottom: 0.5rem;
         }
         .theme-desc {
             color: #94a3b8;
             margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-        .instructions {
-            background: #0f172a;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            text-align: left;
-            border-left: 4px solid #38bdf8;
-        }
-        .instructions h3 {
-            color: #facc15;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .instructions p {
             font-size: 0.9rem;
-            color: #cbd5e1;
-            line-height: 1.4;
+        }
+        .input-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 0.4rem;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.85rem;
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            color: #f8fafc;
+            font-size: 1rem;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #38bdf8;
         }
         .btn {
-            background: #38bdf8;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
             color: #0f172a;
             border: none;
             padding: 0.85rem 1.5rem;
@@ -73,21 +78,36 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            margin-top: 1rem;
             width: 100%;
+            transition: transform 0.1s, filter 0.2s;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
         }
         .btn:hover {
-            background: #0ea5e9;
+            filter: brightness(1.1);
             transform: translateY(-2px);
         }
         .game-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             font-weight: bold;
             color: #94a3b8;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+        }
+        /* Estatísticas de Jogo (Moedas e Vidas) */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #0f172a;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: 1px solid #334155;
+        }
+        .coins-display {
+            color: #facc15;
         }
         /* Barra de Progresso Visual */
         .progress-track {
@@ -95,7 +115,7 @@
             border-radius: 999px;
             height: 8px;
             width: 100%;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             overflow: hidden;
             border: 1px solid #334155;
         }
@@ -105,43 +125,52 @@
             width: 0%;
             transition: width 0.4s ease-in-out;
         }
-        #question-text {
-            font-size: 1.15rem;
-            color: #f8fafc;
-            margin-bottom: 1.25rem;
+        .scenario-box {
+            background: #0f172a;
+            padding: 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+            border: 1px solid #334155;
             text-align: left;
+        }
+        #scenario-text {
+            font-size: 1.05rem;
+            color: #f8fafc;
             line-height: 1.4;
         }
-        .options-grid {
-            display: flex;
-            flex-direction: column;
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 0.75rem;
-            margin-top: 1rem;
         }
-        .option-btn {
-            background: #334155;
-            color: #f8fafc;
-            border: 1px solid #475569;
-            padding: 0.85rem;
+        .action-btn {
+            padding: 0.9rem;
             border-radius: 8px;
-            text-align: left;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
+            border: none;
             font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, filter 0.2s;
         }
-        .option-btn:hover:not(:disabled) {
-            background: #475569;
-            border-color: #38bdf8;
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
         }
-        .option-btn.correct {
-            background: #15803d !important;
-            border-color: #22c55e !important;
+        .btn-safe {
+            background: #166534;
+            color: #f0fdf4;
+            border: 1px solid #22c55e;
         }
-        .option-btn.incorrect {
-            background: #b91c1c !important;
-            border-color: #ef4444 !important;
+        .btn-danger {
+            background: #991b1b;
+            color: #fef2f2;
+            border: 1px solid #ef4444;
         }
-        /* Animação de tremor (Shake) */
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        /* Animação de tremor ao errar */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-6px); }
@@ -154,15 +183,16 @@
             display: none !important;
         }
         #feedback-container {
-            margin-top: 1.5rem;
-            padding: 1rem;
+            margin-top: 1rem;
+            padding: 0.85rem;
             background: #0f172a;
             border-radius: 8px;
             text-align: left;
             border-left: 4px solid #facc15;
+            border: 1px solid #334155;
         }
         #feedback-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #cbd5e1;
             line-height: 1.4;
         }
@@ -175,116 +205,118 @@
         #high-score {
             color: #facc15;
             font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         #end-message {
             color: #cbd5e1;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 1.5rem;
             line-height: 1.4;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Tela Inicial -->
+    <div class="container" id="main-container">
+        <!-- Ecrã 1: Registo de Autonomia (Nome do Jogador) -->
         <div id="start-screen" class="screen active">
             <h1>🔐 Fortaleza das Senhas</h1>
-            <p class="theme-desc">Tema: Segurança Digital e Senhas Fortes</p>
-            <div class="instructions">
-                <h3>Como Jogar:</h3>
-                <p>Tens 3 vidas. Responde aos desafios gerados aleatoriamente sobre senhas seguras, phishing e navegação para proteger a tua fortaleza!</p>
+            <p class="theme-desc">Modo Campanha Interativa</p>
+            <div class="input-group">
+                <label for="player-name">Insere o teu Nome de Operador:</label>
+                <input type="text" id="player-name" class="input-field" placeholder="Ex: Alex Ciber" maxlength="20">
             </div>
-            <button id="start-btn" class="btn">Começar Jogo</button>
+            <button id="start-btn" class="btn">🚀 Começar Missão</button>
         </div>
 
-        <!-- Tela do Jogo -->
+        <!-- Ecrã 2: Jogo Principal -->
         <div id="game-screen" class="screen">
             <div class="game-header">
-                <span id="question-counter">Desafio 1/5</span>
-                <span id="lives-counter">❤️ Vidas: 3</span>
+                <span id="welcome-user">Operador: ---</span>
+                <span id="challenge-counter">Fase 1/5</span>
+            </div>
+            <!-- Barra de Estatísticas (Moedas e Vidas) -->
+            <div class="stats-bar">
+                <span class="coins-display" id="coins-label">🪙 Moedas: 0</span>
+                <span id="lives-label">❤️ Vidas: 3</span>
             </div>
             <!-- Barra de Progresso Visual -->
             <div class="progress-track">
                 <div id="progress-fill" class="progress-fill"></div>
             </div>
-            <div id="question-container">
-                <h2 id="question-text">A carregar pergunta...</h2>
-                <div id="options-container" class="options-grid"></div>
+            <div class="scenario-box">
+                <p id="scenario-text">A carregar cenário...</p>
+            </div>
+            <div id="action-container" class="action-grid">
+                <button id="safe-btn" class="action-btn btn-safe">🛡️ Seguro</button>
+                <button id="danger-btn" class="action-btn btn-danger">🚨 Golpe</button>
             </div>
             <div id="feedback-container" class="hidden">
                 <p id="feedback-text"></p>
-                <button id="next-btn" class="btn">Próximo Desafio</button>
+                <button id="next-btn" class="btn" style="margin-top: 0.8rem; font-size: 0.9rem; padding: 0.6rem;">Avançar ➔</button>
             </div>
         </div>
 
-        <!-- Tela Final -->
+        <!-- Ecrã 3: Fim de Jogo e Recordes -->
         <div id="end-screen" class="screen">
-            <h2 id="end-title">Fim de Jogo!</h2>
-            <p id="final-score">A tua pontuação: 0/5</p>
-            <p id="high-score">Recorde anterior: 0/5</p>
-            <p id="end-message">Parabéns por protegeres a tua fortaleza digital!</p>
-            <button id="restart-btn" class="btn">Jogar Novamente</button>
+            <h2 id="end-title">Fim de Jogo</h2>
+            <p id="final-score">Pontuação: 0/5</p>
+            <p id="coins-earned">Moedas ganhas: 0 🪙</p>
+            <p id="high-score">Recorde Pessoal: 0</p>
+            <p id="end-message">Relatório guardado com sucesso.</p>
+            <button id="restart-btn" class="btn">🔄 Jogar Novamente</button>
         </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Banco expandido com 8 perguntas para garantir variedade a cada nova partida
-            const questionBank = [
+            const scenarioBank = [
                 {
-                    question: "Qual das seguintes senhas é considerada mais segura contra ataques de força bruta?",
-                    options: ["12345678", "senha2026", "P#9$mK!2qX", "meunome123"],
-                    correct: 2,
-                    explanation: "As senhas fortes combinam letras maiúsculas, minúsculas, números e símbolos especiais, tendo pelo menos 10 caracteres."
+                    text: "Recebeste um SMS urgente do teu banco a solicitar clique num link encurtado 'bit.ly/atualizar-conta'.",
+                    isSafe: false,
+                    explanation: "Detetado Phishing! Bancos legítimos nunca utilizam URLs encurtados por SMS."
                 },
                 {
-                    question: "Recebeste um e-mail urgente do teu 'banco' a pedir para clicares num link e redefinires a tua senha. O que deves fazer?",
-                    options: ["Clicar rapidamente para não perder a conta", "Desconfiar, pois é uma tática comum de phishing", "Responder ao e-mail informando a tua senha atual", "Enviar o link para os teus amigos"],
-                    correct: 1,
-                    explanation: "Isto é phishing! Os bancos nunca pedem redefinição de senha por e-mail com links diretos."
+                    text: "Configuraste uma palavra-passe complexa utilizando letras maiúsculas, minúsculas, números e símbolos.",
+                    isSafe: true,
+                    explanation: "Correto! A alta entropia desta senha bloqueia ataques informáticos de força bruta."
                 },
                 {
-                    question: "O que significa ativar a Autenticação de Dois Fatores (2FA)?",
-                    options: ["Usar duas senhas iguais em contas diferentes", "Adicionar uma camada extra de segurança além da senha (código via SMS ou app)", "Partilhar a tua senha com um amigo de confiança", "Trocar de senha a cada dois dias"],
-                    correct: 1,
-                    explanation: "O 2FA exige um código adicional ou confirmação, dificultando muito o acesso por invasores mesmo que descubram a tua senha."
+                    text: "Um utilizador desconhecido numa rede social pede o código numérico de autenticação por SMS recebido no teu telemóvel.",
+                    isSafe: false,
+                    explanation: "Armadilha crítica! Partilhar o código de 2FA concede acesso imediato ao invasor."
                 },
                 {
-                    question: "Ao usar um computador público (como na escola), qual é a melhor prática ao terminar de usar as tuas redes sociais?",
-                    options: ["Apenas fechar o separador do navegador", "Desligar o computador diretamente na tomada", "Fazer o logout (sair da conta) e limpar os dados de navegação", "Minimizar a janela"],
-                    correct: 2,
-                    explanation: "Faz sempre logout e limpa os dados para evitar que o próximo utilizador aceda às tuas contas pessoais."
+                    text: "Ativaste a Autenticação de Dois Fatores (2FA) com uma aplicação de segurança dedicada nas tuas contas essenciais.",
+                    isSafe: true,
+                    explanation: "Excelente! O 2FA impede o acesso não autorizado mesmo que a palavra-passe seja comprometida."
                 },
                 {
-                    question: "Qual característica indica que um site de compras ou login é mais seguro (possui criptografia)?",
-                    options: ["Ter muitas cores brilhantes e pop-ups", "O endereço começar com HTTPS:// e ter um ícone de cadeado", "Ter erros ortográficos no texto", "Ser recomendado por um anúncio em rede social"],
-                    correct: 1,
-                    explanation: "O protocolo HTTPS e o cadeado indicam que os dados trocados entre ti e o site estão criptografados e seguros."
+                    text: "Encontraste uma pen USB desconhecida no chão da escola e decidiste ligá-la imediatamente ao computador.",
+                    isSafe: false,
+                    explanation: "Perigo de Malware! Dispositivos de armazenamento desconhecidos podem executar código malicioso."
                 },
                 {
-                    question: "Por que razão não deves usar a mesma senha em todas as tuas contas (redes sociais, e-mail, jogos)?",
-                    options: ["Porque é difícil de decorar", "Porque se um site for hackeado, todas as tuas outras contas ficam vulneráveis", "Porque o navegador não permite", "Porque gasta mais memória do computador"],
-                    correct: 1,
-                    explanation: "Se usas a mesma senha e um serviço menor sofre uma invasão, os hackers ganham acesso a todas as tuas outras plataformas!"
+                    text: "Após terminar de utilizar o computador público na biblioteca, fizeste o logout completo e limpaste os dados de navegação.",
+                    isSafe: true,
+                    explanation: "Procedimento exemplar! Evita que utilizadores seguintes acedam às tuas sessões."
                 },
                 {
-                    question: "O que é um ataque de 'Engenharia Social' no contexto digital?",
-                    options: ["Um vírus que estraga o hardware do PC", "Manipulação psicológica para enganar pessoas e fazê-las revelar dados confidenciais", "Um programa para melhorar a velocidade da internet", "Uma falha no código de uma aplicação"],
-                    correct: 1,
-                    explanation: "A engenharia social explora a confiança humana, como fingir ser uma autoridade para roubar senhas."
+                    text: "Um site de comércio eletrónico oferece prémios incríveis, mas o endereço começa por 'http://' sem ícone de cadeado.",
+                    isSafe: false,
+                    explanation: "Alerta de Fraude! A ausência de HTTPS indica que a ligação não está encriptada."
                 },
                 {
-                    question: "Se encontrares uma pen USB perdida no chão da escola, o que deves fazer?",
-                    options: ["Ligar imediatamente ao computador para ver o conteúdo", "Entregar na direção/secretaria ou deixá-la estar, pois pode conter malware", "Levar para casa e formatar", "Vender a pen drive"],
-                    correct: 1,
-                    explanation: "Prives desconhecidas podem conter códigos maliciosos programados para infetar o computador assim que são inseridas."
+                    text: "Optaste por utilizar uma palavra-passe totalmente distinta e exclusiva para cada serviço ou plataforma digital.",
+                    isSafe: true,
+                    explanation: "Perfeito! Isola o risco para que uma eventual falha num site não afete as restantes contas."
                 }
             ];
 
-            let activeQuestions = [];
-            let currentQuestionIndex = 0;
+            let playerName = "";
+            let activeScenarios = [];
+            let currentIndex = 0;
             let score = 0;
+            let coins = 0;
             let lives = 3;
 
             const startScreen = document.getElementById("start-screen");
@@ -292,84 +324,111 @@
             const endScreen = document.getElementById("end-screen");
             const startBtn = document.getElementById("start-btn");
             const restartBtn = document.getElementById("restart-btn");
-            const questionText = document.getElementById("question-text");
-            const optionsContainer = document.getElementById("options-container");
-            const questionCounter = document.getElementById("question-counter");
-            const livesCounter = document.getElementById("lives-counter");
+            const playerNameInput = document.getElementById("player-name");
+            const welcomeUser = document.getElementById("welcome-user");
+            const scenarioText = document.getElementById("scenario-text");
+            const challengeCounter = document.getElementById("challenge-counter");
+            const coinsLabel = document.getElementById("coins-label");
+            const livesLabel = document.getElementById("lives-label");
             const progressFill = document.getElementById("progress-fill");
+            const safeBtn = document.getElementById("safe-btn");
+            const dangerBtn = document.getElementById("danger-btn");
+            const actionContainer = document.getElementById("action-container");
             const feedbackContainer = document.getElementById("feedback-container");
             const feedbackText = document.getElementById("feedback-text");
             const nextBtn = document.getElementById("next-btn");
             const finalScore = document.getElementById("final-score");
+            const coinsEarned = document.getElementById("coins-earned");
             const highScoreText = document.getElementById("high-score");
             const endTitle = document.getElementById("end-title");
             const endMessage = document.getElementById("end-message");
 
-            startBtn.addEventListener("click", startGame);
-            restartBtn.addEventListener("click", restartGame);
-            nextBtn.addEventListener("click", nextQuestion);
+            startBtn.addEventListener("click", () => {
+                const name = playerNameInput.value.trim();
+                if (name === "") {
+                    alert("Por favor, insere o teu nome de operador para continuar!");
+                    return;
+                }
+                playerName = name;
+                startGame();
+            });
+
+            restartBtn.addEventListener("click", () => {
+                endScreen.classList.remove("active");
+                startScreen.classList.add("active");
+            });
+
+            nextBtn.addEventListener("click", nextChallenge);
+            safeBtn.addEventListener("click", () => handleChoice(true));
+            dangerBtn.addEventListener("click", () => handleChoice(false));
 
             function startGame() {
                 startScreen.classList.remove("active");
                 gameScreen.classList.add("active");
-                currentQuestionIndex = 0;
+                
+                currentIndex = 0;
                 score = 0;
+                coins = 0;
                 lives = 3;
 
-                // Embaralha o banco de perguntas aleatoriamente e selecciona 5 para esta partida
-                activeQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 5);
+                welcomeUser.textContent = `Operador: ${playerName}`;
+                updateStats();
 
-                loadQuestion();
+                // Baralha e selecciona 5 cenários aleatórios para a partida
+                activeScenarios = [...scenarioBank].sort(() => Math.random() - 0.5).slice(0, 5);
+                loadChallenge();
             }
 
-            function loadQuestion() {
+            function loadChallenge() {
                 feedbackContainer.classList.add("hidden");
-                const currentQ = activeQuestions[currentQuestionIndex];
-                questionCounter.textContent = `Desafio ${currentQuestionIndex + 1}/5`;
-                livesCounter.textContent = `❤️ Vidas: ${lives}`;
-                
-                // Atualiza a barra de progresso visual
-                const progressPercentage = (currentQuestionIndex / activeQuestions.length) * 100;
-                progressFill.style.width = `${progressPercentage}%`;
+                actionContainer.style.display = "grid";
+                safeBtn.disabled = false;
+                dangerBtn.disabled = false;
 
-                questionText.textContent = currentQ.question;
-                
-                optionsContainer.innerHTML = "";
-                currentQ.options.forEach((option, index) => {
-                    const btn = document.createElement("button");
-                    btn.textContent = option;
-                    btn.classList.add("option-btn");
-                    btn.addEventListener("click", () => selectOption(index, btn));
-                    optionsContainer.appendChild(btn);
-                });
+                const current = activeScenarios[currentIndex];
+                challengeCounter.textContent = `Fase ${currentIndex + 1}/5`;
+                scenarioText.textContent = current.text;
+
+                // Atualiza a barra de progresso visual
+                const progressPercentage = (currentIndex / activeScenarios.length) * 100;
+                progressFill.style.width = `${progressPercentage}%`;
             }
 
-            function selectOption(selectedIndex, selectedBtn) {
-                const currentQ = activeQuestions[currentQuestionIndex];
-                const optionButtons = optionsContainer.querySelectorAll(".option-btn");
+            function updateStats() {
+                coinsLabel.textContent = `🪙 Moedas: ${coins}`;
+                livesLabel.textContent = `❤️️ Vidas: ${lives}`;
+            }
 
-                optionButtons.forEach(btn => btn.disabled = true);
+            function handleChoice(userChoice) {
+                safeBtn.disabled = true;
+                dangerBtn.disabled = true;
 
-                if (selectedIndex === currentQ.correct) {
-                    optionButtons[selectedIndex].classList.add("correct");
+                const current = activeScenarios[currentIndex];
+                actionContainer.style.display = "none";
+
+                if (userChoice === current.isSafe) {
                     score++;
-                    feedbackText.innerHTML = `<strong>✅ Correto!</strong> ${currentQ.explanation}`;
+                    coins += 20; // Recompensa de 20 moedas por acerto
+                    updateStats();
+                    feedbackText.innerHTML = `<strong>✅ Correto!</strong> Ganhaste 🪙 20 moedas.<br>${current.explanation}`;
                 } else {
-                    optionButtons[selectedIndex].classList.add("incorrect");
-                    optionButtons[currentQ.correct].classList.add("correct");
-                    
-                    // Adiciona efeito visual de tremor ao errar
-                    selectedBtn.classList.add("shake");
-
                     lives--;
-                    livesCounter.textContent = `❤️ Vidas: ${lives}`;
-                    feedbackText.innerHTML = `<strong>❌ Incorreto!</strong> ${currentQ.explanation}`;
+                    updateStats();
+                    if (!userChoice) dangerBtn.classList.add("shake");
+                    else safeBtn.classList.add("shake");
+
+                    setTimeout(() => {
+                        safeBtn.classList.remove("shake");
+                        dangerBtn.classList.remove("shake");
+                    }, 400);
+
+                    feedbackText.innerHTML = `<strong>❌ Errado!</strong> Perdiste 1 vida.<br>${current.explanation}`;
                 }
 
                 feedbackContainer.classList.remove("hidden");
-                
-                // Preenche a barra de progresso ao responder
-                const progressPercentage = ((currentQuestionIndex + 1) / activeQuestions.length) * 100;
+
+                // Atualiza progresso da fase atual
+                const progressPercentage = ((currentIndex + 1) / activeScenarios.length) * 100;
                 progressFill.style.width = `${progressPercentage}%`;
 
                 if (lives <= 0) {
@@ -377,10 +436,10 @@
                 }
             }
 
-            function nextQuestion() {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < activeQuestions.length && lives > 0) {
-                    loadQuestion();
+            function nextChallenge() {
+                currentIndex++;
+                if (currentIndex < activeScenarios.length && lives > 0) {
+                    loadChallenge();
                 } else {
                     endGame(score >= 3);
                 }
@@ -389,28 +448,23 @@
             function endGame(won) {
                 gameScreen.classList.remove("active");
                 endScreen.classList.add("active");
-                finalScore.textContent = `A tua pontuação: ${score}/5`;
+                finalScore.textContent = `Pontuação: ${score}/5`;
+                coinsEarned.textContent = `Total de Moedas: ${coins} 🪙`;
 
-                // Gestão de Recordes com LocalStorage
-                let savedHighScore = localStorage.getItem("fortalezaHighScore") || 0;
+                let savedHighScore = localStorage.getItem("ultimateHighScore") || 0;
                 if (score > savedHighScore) {
                     savedHighScore = score;
-                    localStorage.setItem("fortalezaHighScore", savedHighScore);
+                    localStorage.setItem("ultimateHighScore", savedHighScore);
                 }
                 highScoreText.textContent = `🏆 Recorde Pessoal: ${savedHighScore}/5`;
-                
-                if (won && lives > 0) {
-                    endTitle.textContent = "🏆 Vitória!";
-                    endMessage.textContent = "Parabéns! Protegeste com sucesso a tua fortaleza digital contra ameaças!";
-                } else {
-                    endTitle.textContent = "⚠️ Fim de Jogo!";
-                    endMessage.textContent = "As tuas vidas acabaram. Revê os conceitos de segurança digital e tenta novamente!";
-                }
-            }
 
-            function restartGame() {
-                endScreen.classList.remove("active");
-                startScreen.classList.add("active");
+                if (won && lives > 0) {
+                    endTitle.textContent = `🏆 Parabéns, ${playerName}!`;
+                    endMessage.textContent = "Missão concluída com sucesso! Demonstraste excelente domínio em cibersegurança.";
+                } else {
+                    endTitle.textContent = `⚠️ Fim de Jogo, ${playerName}`;
+                    endMessage.textContent = "As tuas vidas esgotaram-se. Analisa os conceitos e tenta novamente para bater o recorde!";
+                }
             }
         });
     </script>
